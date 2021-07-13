@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+		<!-- 컴포넌트 스캔 //컴포넌트를 찾아서 매핑-->
+		<context:component-scan base-package="admin"/>
+		<context:component-scan base-package="jcappy"/>
+		
+		<!-- 어노테이션 활성화 -->
+		<mvc:annotation-driven/>
+		
+		<!-- default servlet //그외 url매핑-->
+		<mvc:default-servlet-handler/>
+		
+		<!-- viewresolver -->
+		<mvc:view-resolvers>
+			<mvc:jsp prefix="/WEB-INF/view/"/>
+			<mvc:jsp suffix=".jsp"/>
+		</mvc:view-resolvers>
+		<!-- 매출조회 -->
+		<mvc:view-controller path="/admin/jcappy/lookUp_sales/lookUp_sales.do"/>
+		
+		<!-- 부가기능 -->
+		<mvc:view-controller path="/admin/jcappy/add_ons/add_ons.do"/>
+		<mvc:view-controller path="/admin/jcappy/add_ons/coupon_list.do"/>
+		<mvc:view-controller path="/admin/jcappy/add_ons/coupon_write.do"/>
+		<mvc:view-controller path="/admin/jcappy/add_ons/coupon_view.do"/>
+		
+		<!-- 게시판 관리 -->
+		<mvc:view-controller path="/admin/jcappy/board/review_list.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/review_view.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/qna_list.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/qna_view.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/notice_list.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/notice_view.do"/>
+		<mvc:view-controller path="/admin/jcappy/board/notice_write.do"/>
+		
+		<!-- 주문 관리 -->
+		<mvc:view-controller path="/admin/jcappy/order/order_list.do"/>
+		<mvc:view-controller path="/admin/jcappy/order/order_view.do"/>
+	
+		<!-- 로그인 화면 -->
+		<mvc:view-controller path="/admin/jcappy/index.do"/> 
+		
+		<!-- 관리자 계정 관리 -->
+		<mvc:view-controller path="/admin/jcappy/account/index.do"/>
+		<mvc:view-controller path="/admin/jcappy/account/write.do"/>
+		<mvc:view-controller path="/admin/jcappy/account/view.do"/>
+		
+		<!-- 회원 관리 -->
+		<mvc:view-controller path="/admin/jcappy/user/index.do"/>
+		<mvc:view-controller path="/admin/jcappy/user/view.do"/>
+		
+		<!-- 상품 관리 -->
+		<mvc:view-controller path="/admin/jcappy/item/index.do"/>
+		<mvc:view-controller path="/admin/jcappy/item/write.do"/>
+		<mvc:view-controller path="/admin/jcappy/item/view.do"/>
+		
+		
+		<!-- DBCP -->
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+			<property name="url" value="jdbc:mysql://localhost:3305/project"></property>
+			<property name="username" value="project"></property>
+			<property name="password" value="project1234"></property>
+		</bean>
+		
+		<!-- factory bean -->
+		<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"/>
+			<property name="mapperLocations" value="classpath:/mapper/**/*.xml"/>
+		</bean> -->
+		
+		<!-- dao에서 주입받아서 사용할 객체 -->
+		<!-- <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+			<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+		</bean>	 -->
+		
+		<!-- 파일 업로드 -->
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<!-- 인코딩캐릭터셋 -->
+			<property name="defaultEncoding" value="UTF-8"/>
+			<!-- 최대업로드사이즈(바이트단위) -->
+ 			<property name="maxUploadSize" value="100000000"/> <!-- 서버설정에서 20M로 성정해버리면 100M로 해봤자 소용없음 -->
+ 		</bean>	
+</beans>				
