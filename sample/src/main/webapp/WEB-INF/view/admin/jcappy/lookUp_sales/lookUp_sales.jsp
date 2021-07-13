@@ -33,6 +33,9 @@
 										<th scope="col" class="first">매출날짜</th>
 										<th scope="col">상품판매량</th> 
 										<th scope="col">매출액</th> 
+
+
+
 									</tr>
 								</thead>
 								<tbody>
